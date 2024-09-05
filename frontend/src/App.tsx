@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { backend } from 'declarations/backend';
-import { TextField, Typography, CircularProgress, Box, Paper } from '@mui/material';
+import { TextField, Typography, CircularProgress, Box } from '@mui/material';
 import { ArrowUpward, ArrowDownward } from '@mui/icons-material';
 import { useForm, Controller } from 'react-hook-form';
 import BitcoinPrice from './BitcoinPrice';
@@ -74,11 +74,8 @@ function App() {
   };
 
   return (
-    <Box className="min-h-screen flex items-center justify-center p-4">
-      <div className="casino-table">
-        <BitcoinPrice setCanBet={setCanBet} onBetResult={handleBetResult} />
-      </div>
-      <Paper elevation={3} className="p-8 max-w-md w-full bg-white bg-opacity-90 z-10">
+    <Box className="game-container">
+      <div className="game-panel">
         <Typography variant="h4" className="text-center mb-6">Up or Down Game</Typography>
         
         {balance !== null && (
@@ -114,7 +111,8 @@ function App() {
             {gameResult}
           </Typography>
         )}
-      </Paper>
+      </div>
+
       <div className="card-container">
         <div className="card card-up" onClick={handleSubmit((data) => placeBet(data, true))}>
           <ArrowUpward fontSize="large" />
@@ -124,6 +122,10 @@ function App() {
           <ArrowDownward fontSize="large" />
           <span>Down</span>
         </div>
+      </div>
+
+      <div className="casino-table">
+        <BitcoinPrice setCanBet={setCanBet} onBetResult={handleBetResult} />
       </div>
     </Box>
   );

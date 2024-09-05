@@ -30,6 +30,7 @@ code {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding-bottom: 20px;
 }
 
 .card {
@@ -63,6 +64,7 @@ code {
   font-size: 48px;
   color: white;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  margin-bottom: 10px;
 }
 
 .timer {
@@ -75,7 +77,7 @@ code {
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: 55vh;
+  bottom: 60vh;
   left: 0;
   right: 0;
 }
@@ -100,4 +102,45 @@ code {
 
 .lose {
   color: #F44336;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-top: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.game-panel {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 90%;
+  max-width: 400px;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .bitcoin-price {
+    font-size: 36px;
+  }
+
+  .timer {
+    font-size: 20px;
+  }
+
+  .card {
+    width: 120px;
+    height: 160px;
+    font-size: 20px;
+  }
+
+  .card-container {
+    bottom: 55vh;
+  }
 }
