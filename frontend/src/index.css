@@ -78,8 +78,7 @@ code {
   justify-content: center;
   position: absolute;
   bottom: 60vh;
-  left: 0;
-  right: 0;
+  left: 20px;
 }
 
 .betting-message {
@@ -106,11 +105,11 @@ code {
 
 .game-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
   justify-content: flex-start;
   min-height: 100vh;
-  padding-top: 20px;
+  padding: 20px;
   position: relative;
   overflow-x: hidden;
 }
@@ -119,13 +118,26 @@ code {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   padding: 20px;
-  margin-bottom: 20px;
-  width: 90%;
-  max-width: 400px;
+  margin-right: 20px;
+  width: 300px;
+  max-width: 90%;
   z-index: 10;
+  position: fixed;
+  left: 20px;
+  top: 20px;
 }
 
 @media (max-width: 768px) {
+  .game-container {
+    flex-direction: column;
+  }
+
+  .game-panel {
+    position: static;
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
   .bitcoin-price {
     font-size: 36px;
   }
@@ -141,6 +153,7 @@ code {
   }
 
   .card-container {
-    bottom: 55vh;
+    position: static;
+    margin-bottom: 20px;
   }
 }

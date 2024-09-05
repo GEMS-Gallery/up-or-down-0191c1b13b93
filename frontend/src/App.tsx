@@ -111,16 +111,16 @@ function App() {
             {gameResult}
           </Typography>
         )}
-      </div>
 
-      <div className="card-container">
-        <div className="card card-up" onClick={handleSubmit((data) => placeBet(data, true))}>
-          <ArrowUpward fontSize="large" />
-          <span>Up</span>
-        </div>
-        <div className="card card-down" onClick={handleSubmit((data) => placeBet(data, false))}>
-          <ArrowDownward fontSize="large" />
-          <span>Down</span>
+        <div className="card-container">
+          <div className="card card-up" onClick={handleSubmit((data) => placeBet(data, true))}>
+            <ArrowUpward fontSize="large" />
+            <span>Up</span>
+          </div>
+          <div className="card card-down" onClick={handleSubmit((data) => placeBet(data, false))}>
+            <ArrowDownward fontSize="large" />
+            <span>Down</span>
+          </div>
         </div>
       </div>
 
