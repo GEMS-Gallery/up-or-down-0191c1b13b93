@@ -86,3 +86,18 @@ code {
   margin-top: 10px;
   text-align: center;
 }
+
+.bet-result {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.win {
+  color: #4CAF50;
+}
+
+.lose {
+  color: #F44336;
+}

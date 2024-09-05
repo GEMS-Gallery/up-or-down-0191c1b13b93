@@ -4,9 +4,10 @@ import { backend } from 'declarations/backend';
 
 interface BitcoinPriceProps {
   setCanBet: (canBet: boolean) => void;
+  onBetResult: (won: boolean, newBalance: number) => void;
 }
 
-const BitcoinPrice: React.FC<BitcoinPriceProps> = ({ setCanBet }) => {
+const BitcoinPrice: React.FC<BitcoinPriceProps> = ({ setCanBet, onBetResult }) => {
   const [price, setPrice] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [timer, setTimer] = useState<number>(60);
@@ -19,7 +20,10 @@ const BitcoinPrice: React.FC<BitcoinPriceProps> = ({ setCanBet }) => {
       setPrice(newPrice.toFixed(2));
       setLoading(false);
       setTimer(60);
-      await backend.updatePrice(newPrice);
+      const betResults = await backend.updatePrice(newPrice);
+      betResults.forEach(([userId, won, newBalance]) => {
+        onBetResult(won, Number(newBalance));
+      });
     } catch (error) {
       console.error('Error fetching Bitcoin price:', error);
       setLoading(false);

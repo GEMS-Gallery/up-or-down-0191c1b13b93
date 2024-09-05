@@ -7,7 +7,11 @@ export const idlFactory = ({ IDL }) => {
     'getLastUpdateTime' : IDL.Func([], [IDL.Int], ['query']),
     'initializeWallet' : IDL.Func([], [Result_1], []),
     'placeBet' : IDL.Func([IDL.Nat, IDL.Bool], [Result], []),
-    'updatePrice' : IDL.Func([IDL.Float64], [], []),
+    'updatePrice' : IDL.Func(
+        [IDL.Float64],
+        [IDL.Vec(IDL.Tuple(IDL.Principal, IDL.Bool, IDL.Nat))],
+        [],
+      ),
   });
 };
 export const init = ({ IDL }) => { return []; };

@@ -14,5 +14,9 @@ service : {
   getLastUpdateTime: () -> (int) query;
   initializeWallet: () -> (Result_1);
   placeBet: (nat, bool) -> (Result);
-  updatePrice: (float64) -> ();
+  updatePrice: (float64) -> (vec record {
+                                   principal;
+                                   bool;
+                                   nat;
+                                 });
 }

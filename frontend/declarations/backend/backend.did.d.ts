@@ -12,7 +12,7 @@ export interface _SERVICE {
   'getLastUpdateTime' : ActorMethod<[], bigint>,
   'initializeWallet' : ActorMethod<[], Result_1>,
   'placeBet' : ActorMethod<[bigint, boolean], Result>,
-  'updatePrice' : ActorMethod<[number], undefined>,
+  'updatePrice' : ActorMethod<[number], Array<[Principal, boolean, bigint]>>,
 }
 export declare const idlFactory: IDL.InterfaceFactory;
 export declare const init: (args: { IDL: typeof IDL }) => IDL.Type[];

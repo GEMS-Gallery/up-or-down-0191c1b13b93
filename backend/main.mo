@@ -18,6 +18,7 @@ actor UpOrDown {
     amount: Nat;
     direction: Bool; // true for Up, false for Down
     timestamp: Int;
+    priceAtBet: Float;
   };
 
   stable var userWallets : [(UserId, Nat)] = [];
@@ -52,7 +53,7 @@ actor UpOrDown {
         };
         let newBalance = balance - amount;
         walletEntries.put(userId, newBalance);
-        activeBets.put(userId, { amount = amount; direction = direction; timestamp = currentTime });
+        activeBets.put(userId, { amount = amount; direction = direction; timestamp = currentTime; priceAtBet = currentPrice });
         #ok("Bet placed successfully")
       };
       case null {
@@ -61,22 +62,25 @@ actor UpOrDown {
     }
   };
 
-  public shared func updatePrice(newPrice: Float) : async () {
+  public shared func updatePrice(newPrice: Float) : async [(Principal, Bool, Nat)] {
     let oldPrice = currentPrice;
     currentPrice := newPrice;
     lastUpdateTime := Time.now();
+    var results : [(Principal, Bool, Nat)] = [];
 
     for ((userId, bet) in activeBets.entries()) {
-      let won = (bet.direction and newPrice > oldPrice) or (not bet.direction and newPrice < oldPrice);
+      let won = (bet.direction and newPrice > bet.priceAtBet) or (not bet.direction and newPrice < bet.priceAtBet);
       switch (walletEntries.get(userId)) {
         case (?balance) {
           let newBalance = if (won) balance + bet.amount * 2 else balance;
           walletEntries.put(userId, newBalance);
+          results := Array.append(results, [(userId, won, newBalance)]);
         };
         case null {}
       };
     };
     activeBets := HashMap.HashMap<UserId, Bet>(10, Principal.equal, Principal.hash);
+    results
   };
 
   public query(msg) func getBalance() : async Result.Result<Nat, Text> {

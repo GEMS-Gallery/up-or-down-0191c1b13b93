@@ -68,10 +68,15 @@ function App() {
     }
   };
 
+  const handleBetResult = (won: boolean, newBalance: number) => {
+    setBalance(newBalance);
+    setGameResult(won ? "You won! Your balance has been doubled." : "You lost. Better luck next time!");
+  };
+
   return (
     <Box className="min-h-screen flex items-center justify-center p-4">
       <div className="casino-table">
-        <BitcoinPrice setCanBet={setCanBet} />
+        <BitcoinPrice setCanBet={setCanBet} onBetResult={handleBetResult} />
       </div>
       <Paper elevation={3} className="p-8 max-w-md w-full bg-white bg-opacity-90 z-10">
         <Typography variant="h4" className="text-center mb-6">Up or Down Game</Typography>
@@ -105,7 +110,7 @@ function App() {
         {loading && <CircularProgress className="mx-auto block" />}
 
         {gameResult && (
-          <Typography variant="h6" className="text-center mt-4">
+          <Typography variant="h6" className={`text-center mt-4 bet-result ${gameResult.includes("won") ? "win" : "lose"}`}>
             {gameResult}
           </Typography>
         )}
