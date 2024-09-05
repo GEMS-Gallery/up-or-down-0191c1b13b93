@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { backend } from 'declarations/backend';
-import { Button, TextField, Typography, CircularProgress, Box, Paper } from '@mui/material';
+import { TextField, Typography, CircularProgress, Box, Paper } from '@mui/material';
 import { ArrowUpward, ArrowDownward } from '@mui/icons-material';
 import { useForm, Controller } from 'react-hook-form';
+import BitcoinPrice from './BitcoinPrice';
 
 function App() {
   const [balance, setBalance] = useState<number | null>(null);
@@ -64,7 +65,8 @@ function App() {
 
   return (
     <Box className="min-h-screen flex items-center justify-center p-4">
-      <Paper elevation={3} className="p-8 max-w-md w-full bg-white bg-opacity-90">
+      <div className="casino-table"></div>
+      <Paper elevation={3} className="p-8 max-w-md w-full bg-white bg-opacity-90 z-10">
         <Typography variant="h4" className="text-center mb-6">Up or Down Game</Typography>
         
         {balance !== null && (
@@ -73,7 +75,9 @@ function App() {
           </Typography>
         )}
 
-        <form onSubmit={handleSubmit((data) => {})}>  
+        <BitcoinPrice />
+
+        <form onSubmit={handleSubmit((data) => {})}>
           <Controller
             name="amount"
             control={control}
@@ -93,24 +97,14 @@ function App() {
           />
 
           <Box className="flex justify-between mb-4">
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<ArrowUpward />}
-              onClick={handleSubmit((data) => placeBet(data, true))}
-              disabled={loading}
-            >
-              Up
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              startIcon={<ArrowDownward />}
-              onClick={handleSubmit((data) => placeBet(data, false))}
-              disabled={loading}
-            >
-              Down
-            </Button>
+            <div className="card card-up" onClick={handleSubmit((data) => placeBet(data, true))}>
+              <ArrowUpward fontSize="large" />
+              <span>Up</span>
+            </div>
+            <div className="card card-down" onClick={handleSubmit((data) => placeBet(data, false))}>
+              <ArrowDownward fontSize="large" />
+              <span>Down</span>
+            </div>
           </Box>
         </form>
 

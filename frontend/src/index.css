@@ -9,13 +9,47 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('https://images.unsplash.com/photo-1671688592515-55a3cab81ba2?ixid=M3w2MzIxNTd8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MjU1MzE3OTV8&ixlib=rb-4.0.3');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-color: #1a1a1a;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.casino-table {
+  background-color: #006400;
+  border-radius: 50% / 100% 100% 0 0;
+  width: 100%;
+  height: 50vh;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+}
+
+.card {
+  width: 150px;
+  height: 200px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card-up {
+  background-color: #4CAF50;
+}
+
+.card-down {
+  background-color: #F44336;
 }
