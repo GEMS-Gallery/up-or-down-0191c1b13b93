@@ -75,12 +75,15 @@ function App() {
 
   return (
     <Box className="game-container">
-      <div className="balance-display">
-        Balance: {balance !== null ? `${balance} $BET` : 'Loading...'}
-      </div>
       <div className="game-panel">
         <Typography variant="h4" className="text-center mb-6">Up or Down Game</Typography>
         
+        {balance !== null && (
+          <Typography variant="h6" className="text-center mb-4">
+            Your Balance: {balance} $BET
+          </Typography>
+        )}
+
         <form onSubmit={handleSubmit((data) => {})}>
           <Controller
             name="amount"
