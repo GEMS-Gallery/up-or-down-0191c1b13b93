@@ -26,6 +26,10 @@ code {
   bottom: 0;
   left: 0;
   box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .card {
@@ -40,6 +44,7 @@ code {
   color: white;
   cursor: pointer;
   transition: transform 0.3s ease;
+  margin: 0 10px;
 }
 
 .card:hover {
@@ -52,4 +57,25 @@ code {
 
 .card-down {
   background-color: #F44336;
+}
+
+.bitcoin-price {
+  font-size: 48px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.timer {
+  font-size: 24px;
+  color: white;
+  margin-top: 10px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 55vh;
+  left: 0;
+  right: 0;
 }

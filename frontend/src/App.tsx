@@ -65,7 +65,9 @@ function App() {
 
   return (
     <Box className="min-h-screen flex items-center justify-center p-4">
-      <div className="casino-table"></div>
+      <div className="casino-table">
+        <BitcoinPrice />
+      </div>
       <Paper elevation={3} className="p-8 max-w-md w-full bg-white bg-opacity-90 z-10">
         <Typography variant="h4" className="text-center mb-6">Up or Down Game</Typography>
         
@@ -74,8 +76,6 @@ function App() {
             Your Balance: {balance} $BET
           </Typography>
         )}
-
-        <BitcoinPrice />
 
         <form onSubmit={handleSubmit((data) => {})}>
           <Controller
@@ -95,17 +95,6 @@ function App() {
               />
             )}
           />
-
-          <Box className="flex justify-between mb-4">
-            <div className="card card-up" onClick={handleSubmit((data) => placeBet(data, true))}>
-              <ArrowUpward fontSize="large" />
-              <span>Up</span>
-            </div>
-            <div className="card card-down" onClick={handleSubmit((data) => placeBet(data, false))}>
-              <ArrowDownward fontSize="large" />
-              <span>Down</span>
-            </div>
-          </Box>
         </form>
 
         {loading && <CircularProgress className="mx-auto block" />}
@@ -116,6 +105,16 @@ function App() {
           </Typography>
         )}
       </Paper>
+      <div className="card-container">
+        <div className="card card-up" onClick={handleSubmit((data) => placeBet(data, true))}>
+          <ArrowUpward fontSize="large" />
+          <span>Up</span>
+        </div>
+        <div className="card card-down" onClick={handleSubmit((data) => placeBet(data, false))}>
+          <ArrowDownward fontSize="large" />
+          <span>Down</span>
+        </div>
+      </div>
     </Box>
   );
 }
