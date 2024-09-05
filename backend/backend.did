@@ -6,10 +6,13 @@ type Result_1 =
 type Result = 
  variant {
    err: text;
-   ok: bool;
+   ok: text;
  };
 service : {
   getBalance: () -> (Result_1) query;
+  getCurrentPrice: () -> (float64) query;
+  getLastUpdateTime: () -> (int) query;
   initializeWallet: () -> (Result_1);
   placeBet: (nat, bool) -> (Result);
+  updatePrice: (float64) -> ();
 }

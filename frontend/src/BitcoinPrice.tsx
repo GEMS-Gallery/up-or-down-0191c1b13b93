@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
+import { backend } from 'declarations/backend';
 
-const BitcoinPrice: React.FC = () => {
+interface BitcoinPriceProps {
+  setCanBet: (canBet: boolean) => void;
+}
+
+const BitcoinPrice: React.FC<BitcoinPriceProps> = ({ setCanBet }) => {
   const [price, setPrice] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [timer, setTimer] = useState<number>(60);
@@ -10,9 +15,11 @@ const BitcoinPrice: React.FC = () => {
     try {
       const response = await fetch('https://api.coinbase.com/v2/exchange-rates?currency=BTC');
       const data = await response.json();
-      setPrice(data.data.rates.USD);
+      const newPrice = parseFloat(data.data.rates.USD);
+      setPrice(newPrice.toFixed(2));
       setLoading(false);
       setTimer(60);
+      await backend.updatePrice(newPrice);
     } catch (error) {
       console.error('Error fetching Bitcoin price:', error);
       setLoading(false);
@@ -27,18 +34,32 @@ const BitcoinPrice: React.FC = () => {
 
   useEffect(() => {
     const timerInterval = setInterval(() => {
-      setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 60));
+      setTimer((prevTimer) => {
+        if (prevTimer <= 1) {
+          return 60;
+        }
+        if (prevTimer === 31) {
+          setCanBet(false);
+        }
+        if (prevTimer === 60) {
+          setCanBet(true);
+        }
+        return prevTimer - 1;
+      });
     }, 1000);
     return () => clearInterval(timerInterval);
-  }, []);
+  }, [setCanBet]);
 
   return (
     <>
       <Typography variant="h2" className="bitcoin-price">
-        {loading ? 'Loading...' : `$${parseFloat(price || '0').toFixed(2)}`}
+        {loading ? 'Loading...' : `$${price}`}
       </Typography>
       <Typography variant="h6" className="timer">
         Next update in: {timer}s
+      </Typography>
+      <Typography variant="body1" className="betting-message">
+        {timer > 30 ? "You can place bets for the next " + (timer - 30) + " seconds" : "Betting is closed for this round"}
       </Typography>
     </>
   );

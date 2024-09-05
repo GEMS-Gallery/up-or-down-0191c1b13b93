@@ -79,3 +79,10 @@ code {
   left: 0;
   right: 0;
 }
+
+.betting-message {
+  font-size: 18px;
+  color: white;
+  margin-top: 10px;
+  text-align: center;
+}

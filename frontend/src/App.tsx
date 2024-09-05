@@ -9,6 +9,7 @@ function App() {
   const [balance, setBalance] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [gameResult, setGameResult] = useState<string | null>(null);
+  const [canBet, setCanBet] = useState(true);
   const { control, handleSubmit, reset } = useForm();
 
   useEffect(() => {
@@ -44,12 +45,16 @@ function App() {
   };
 
   const placeBet = async (data: { amount: number }, choice: boolean) => {
+    if (!canBet) {
+      setGameResult("Betting is closed for this round");
+      return;
+    }
     setLoading(true);
     setGameResult(null);
     try {
       const result = await backend.placeBet(BigInt(data.amount), choice);
       if ('ok' in result) {
-        setGameResult(result.ok ? 'You won!' : 'You lost!');
+        setGameResult("Bet placed successfully. Waiting for next price update.");
         updateBalance();
       } else {
         setGameResult('Error: ' + result.err);
@@ -66,7 +71,7 @@ function App() {
   return (
     <Box className="min-h-screen flex items-center justify-center p-4">
       <div className="casino-table">
-        <BitcoinPrice />
+        <BitcoinPrice setCanBet={setCanBet} />
       </div>
       <Paper elevation={3} className="p-8 max-w-md w-full bg-white bg-opacity-90 z-10">
         <Typography variant="h4" className="text-center mb-6">Up or Down Game</Typography>
